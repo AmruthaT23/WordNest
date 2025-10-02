@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WordNest</string>
+    <string name="title_home">WordNest</string>
+    <string name="title_history">History</string>
+    <string name="title_bookmark">Bookmark</string>
+
+</resources>

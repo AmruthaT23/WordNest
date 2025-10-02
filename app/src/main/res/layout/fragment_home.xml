@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginTop="80dp">  <!-- Push all content further down -->
+
+        <!-- Search Section -->
+        <TextView
+            android:id="@+id/text_search_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search Dictionary"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:paddingBottom="12dp" />
+
+        <!-- Rounded Search Bar with Button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_search_box"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="32dp"
+            android:clipToOutline="true">
+
+            <!-- Search Icon -->
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_search_foreground"
+                android:layout_marginEnd="8dp"
+                app:tint="#7650ff" />
+
+            <!-- EditText -->
+            <EditText
+                android:id="@+id/editText_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="Search for a word..."
+                android:background="@null"
+                android:padding="8dp"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <!-- Search Button -->
+            <Button
+                android:id="@+id/button_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/rounded_button"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp" />
+
+        </LinearLayout>
+
+        <!-- Word of the Day Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#f2f2ff"
+            android:padding="16dp"
+            android:layout_marginBottom="32dp"
+            android:elevation="2dp"
+            android:clipToOutline="true"
+            android:backgroundTint="#f2f2ff">
+
+            <TextView
+                android:id="@+id/text_word_of_day_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Word of the Day"
+                android:textSize="18sp"
+                android:textColor="#7650ff"
+                android:textStyle="bold"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:id="@+id/text_word_of_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ExampleWord"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:id="@+id/text_word_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Noun"
+                android:textSize="16sp"
+                android:textColor="#7650ff"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:id="@+id/text_word_meanings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meaning 1: A sample meaning\nMeaning 2: Another meaning"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                android:paddingBottom="16dp" />
+
+            <Button
+                android:id="@+id/button_view_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="View Details"
+                android:background="@drawable/rounded_button"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

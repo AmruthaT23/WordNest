@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel;
 
 public class BookmarksViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    //private final Mutable LiveData<String> mText;
 
-    public BookmarksViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is bookmarks fragment");
-    }
+   // public BookmarksViewModel() {
+    //    mText = new MutableLiveData<>();
+   //     mText.setValue("This is bookmarks fragment");
+  //  }
 
-    public LiveData<String> getText() {
-        return mText;
-    }
+    //public LiveData<String> getText() {
+      //  return mText;
+   // }
 }

@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wordnest.db.HistoryDatabaseHelper;
+import com.example.wordnest.db.BookmarksDatabaseHelper;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -69,9 +71,25 @@ public class WordDetailsActivity extends AppCompatActivity {
             fetchWordDetails(word);
         }
 
-        buttonBookmark.setOnClickListener(v ->
-                Toast.makeText(this, "Bookmark feature coming soon!", Toast.LENGTH_SHORT).show()
-        );
+        buttonBookmark.setOnClickListener(v -> {
+            String currentWord = textWord.getText() != null ? textWord.getText().toString().trim() : "";
+            if (currentWord.isEmpty()) {
+                Toast.makeText(this, "No word to bookmark", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            BookmarksDatabaseHelper bookmarksDb = new BookmarksDatabaseHelper(this);
+            if (bookmarksDb.isBookmarked(currentWord)) {
+                Toast.makeText(this, "Already bookmarked", Toast.LENGTH_SHORT).show();
+            } else {
+                boolean added = bookmarksDb.addBookmark(currentWord);
+                if (added) {
+                    Toast.makeText(this, "Bookmarked \"" + currentWord + "\"", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Error while bookmarking", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

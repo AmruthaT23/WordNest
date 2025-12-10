@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.wordnest.db.HistoryDatabaseHelper;
 import com.example.wordnest.db.BookmarksDatabaseHelper;
 
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,7 +27,8 @@ public class WordDetailsActivity extends AppCompatActivity {
     private LinearLayout layoutDefinitions, layoutExamples, layoutSynonyms, layoutAntonyms;
     private Button buttonBookmark;
 
-    private HistoryDatabaseHelper dbHelper; // database helper
+    private HistoryDatabaseHelper dbHelper; // History database helper
+    private boolean isWordValid = false;    // ✅ Flag to track if word is valid
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +51,10 @@ public class WordDetailsActivity extends AppCompatActivity {
         textWord = findViewById(R.id.text_word);
         textPhonetic = findViewById(R.id.text_phonetic);
         textPartOfSpeech = findViewById(R.id.text_part_of_speech);
-
         layoutDefinitions = findViewById(R.id.layout_definitions);
         layoutExamples = findViewById(R.id.layout_examples);
         layoutSynonyms = findViewById(R.id.layout_synonyms);
         layoutAntonyms = findViewById(R.id.layout_antonyms);
-
         buttonBookmark = findViewById(R.id.button_add_bookmark);
 
         // Get word from intent
@@ -71,10 +69,17 @@ public class WordDetailsActivity extends AppCompatActivity {
             fetchWordDetails(word);
         }
 
+        // ✅ Bookmark button click logic (with validation)
         buttonBookmark.setOnClickListener(v -> {
             String currentWord = textWord.getText() != null ? textWord.getText().toString().trim() : "";
+
             if (currentWord.isEmpty()) {
                 Toast.makeText(this, "No word to bookmark", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!isWordValid) {
+                Toast.makeText(this, "Cannot bookmark — word not found", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -107,6 +112,7 @@ public class WordDetailsActivity extends AppCompatActivity {
 
                 int responseCode = conn.getResponseCode();
                 if (responseCode != 200) {
+                    isWordValid = false; // ❌ Mark as invalid
                     runOnUiThread(() ->
                             Toast.makeText(WordDetailsActivity.this, "Word not found!", Toast.LENGTH_SHORT).show()
                     );
@@ -124,6 +130,7 @@ public class WordDetailsActivity extends AppCompatActivity {
                 runOnUiThread(() -> parseAndDisplay(response.toString()));
 
             } catch (Exception e) {
+                isWordValid = false; // ❌ Error also marks invalid
                 runOnUiThread(() ->
                         Toast.makeText(WordDetailsActivity.this, "Error fetching word details", Toast.LENGTH_SHORT).show()
                 );
@@ -134,6 +141,8 @@ public class WordDetailsActivity extends AppCompatActivity {
 
     private void parseAndDisplay(String result) {
         try {
+            isWordValid = true; // ✅ Mark the word as valid since parsing succeeded
+
             JSONArray jsonArray = new JSONArray(result);
             JSONObject firstObj = jsonArray.getJSONObject(0);
 
@@ -275,6 +284,7 @@ public class WordDetailsActivity extends AppCompatActivity {
             layoutAntonyms.addView(antText);
 
         } catch (Exception e) {
+            isWordValid = false;
             Toast.makeText(this, "Word not found!", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
